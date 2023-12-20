@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div
+  id="hotel-grid"
+  x-bind:class="{ 'ag-theme-alpine-dark': mode === 'dark', 'ag-theme-alpine': mode === 'light' }"
+  class="h-full"
+>
+  {% csrf_token %}
+</div>
+
+{% endblock content %} {% block scripts %}
+<script src="{%static 'js/ag-grid-enterprise.min.noStyle.js' %}"></script>
+<script src="{%static 'js/index.js' %}"></script>
+{% endblock scripts %}

@@ -23,17 +23,38 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "users",
-    "definitions",
-    "leaflet",
+    "django.contrib.gis",
 ]
+
+THIRD_PARTY_APPS = [
+    "leaflet",
+    "import_export",
+    "phonenumber_field",
+    "rest_framework",
+    "simple_history",
+]
+
+LOCAL_APPS = [
+    "accommodation",
+    "users",
+    # "clients",
+    # "contracts",
+    "definitions",
+    # "reports",
+    # "reservations",
+    # "mapping",
+    # "scripts",
+]
+
+# All installed apps
+INSTALLED_APPS = ["grappelli"] + THIRD_PARTY_APPS + DJANGO_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -150,6 +171,9 @@ STORAGES = {
 
 FIXTURE_DIRS = [BASE_DIR.parent / "fixtures"]
 
+GRAPPELLI_ADMIN_TITLE = "Datapoint"
+GRAPPELLI_CLEAN_INPUT_TYPES = True
+
 LEAFLET_CONFIG = {
     "DEFAULT_CENTER": (24.5957861, 54.6892113),
     "DEFAULT_ZOOM": 8,
@@ -164,3 +188,21 @@ LEAFLET_CONFIG = {
         ),
     ],
 }
+
+EMAIL_BACKEND = env("EMAIL_BACKEND")
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env("EMAIL_PORT", cast=int)
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", False)
+
+SERVER_EMAIL = env("EMAIL_HOST_USER")
+
+ADMINS = [
+    (env("ADMIN_NAME_1"), env("ADMIN_EMAIL_1")),
+]
+
+MANAGERS = ADMINS
+
+SSRS_USERNAME = env("SSRS_USERNAME")
+SSRS_PASSWORD = env("SSRS_PASSWORD")
