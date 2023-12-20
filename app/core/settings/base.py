@@ -50,7 +50,7 @@ LOCAL_APPS = [
     # "reports",
     # "reservations",
     "mapping",
-    # "scripts",
+    "scripts",
 ]
 
 # All installed apps
