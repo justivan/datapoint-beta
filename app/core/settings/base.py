@@ -44,7 +44,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "accommodation",
     "users",
-    # "clients",
+    "clients",
     # "contracts",
     "definitions",
     # "reports",
