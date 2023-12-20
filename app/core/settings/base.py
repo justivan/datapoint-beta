@@ -49,7 +49,7 @@ LOCAL_APPS = [
     "definitions",
     # "reports",
     # "reservations",
-    # "mapping",
+    "mapping",
     # "scripts",
 ]
 
