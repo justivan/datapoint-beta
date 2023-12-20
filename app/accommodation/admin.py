@@ -9,12 +9,12 @@ from .models import (
     HotelTag,
 )
 
-# from mapping.models import HotelMapping, HotelRoomMapping
+from mapping.models import HotelMapping, HotelRoomMapping
 
 
-# class HotelMappingInline(admin.TabularInline):
-#     model = HotelMapping
-#     extra = 0
+class HotelMappingInline(admin.TabularInline):
+    model = HotelMapping
+    extra = 0
 
 
 class HotelRoomInline(admin.TabularInline):
@@ -52,7 +52,7 @@ class HotelAdmin(admin.ModelAdmin):
     list_per_page = 20
     search_fields = ("id", "name", "giata", "chain__name")
     inlines = (
-        # HotelMappingInline,
+        HotelMappingInline,
         HotelRoomInline,
     )
     fieldsets = (
