@@ -43,6 +43,6 @@ services:
     depends_on:
       - django
     ports:
-      - 80:80
+      - 8000:80
     volumes:
       - production_django_media:/vol/static
