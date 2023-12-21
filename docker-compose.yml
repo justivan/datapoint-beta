@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 volumes:
   production_postgres_data: {}
@@ -10,7 +10,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/django/Dockerfile
-    image: datagate_production_django
+    image: datapoint_production_django
     restart: always
     volumes:
       - production_django_media:/vol/www
@@ -24,7 +24,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/postgres/Dockerfile
-    image: datagate_production_postgres
+    image: datapoint_production_postgres
     restart: always
     volumes:
       - production_postgres_data:/var/lib/postgresql/data
@@ -38,7 +38,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
-    image: datagate_production_nginx
+    image: datapoint_production_nginx
     restart: always
     depends_on:
       - django
