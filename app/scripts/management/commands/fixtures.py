@@ -65,11 +65,11 @@ class Command(BaseCommand):
                 "accommodation/hotelchain",
                 "accommodation/hotelcategory",
                 "accommodation/hotel",
-                # "accommodation/hotelroom",
-                "mapping/hotelmapping",
-                # "mapping/hotelroommapping",
-                "mapping/operatormapping",
+                "accommodation/hotelroom",
                 "mapping/provider",
+                "mapping/hotelmapping",
+                "mapping/hotelroommapping",
+                "mapping/operatormapping",
             ]
             call_command("loaddata", *fixtures)
         except FileNotFoundError as e:

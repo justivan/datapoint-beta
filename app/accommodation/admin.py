@@ -22,9 +22,9 @@ class HotelRoomInline(admin.TabularInline):
     extra = 0
 
 
-# class HotelRoomMappingInline(admin.TabularInline):
-#     model = HotelRoomMapping
-#     extra = 0
+class HotelRoomMappingInline(admin.TabularInline):
+    model = HotelRoomMapping
+    extra = 0
 
 
 @admin.register(Hotel)
@@ -124,16 +124,16 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ("id", "name")
 
 
-# @admin.register(HotelRoom)
-# class HotelRoomAdmin(admin.ModelAdmin):
-#     # inlines = (HotelRoomMappingInline, RoomInventoryInline)
-#     list_display = ("id", "name", "hotel", "ordinal", "room_mapping")
-#     search_fields = ("hotel__name", "hotel__id")
-#     list_editable = ("ordinal",)
-#     raw_id_fields = ("hotel",)
-#     autocomplete_lookup_fields = {"fk": ["hotel"]}
+@admin.register(HotelRoom)
+class HotelRoomAdmin(admin.ModelAdmin):
+    inlines = (HotelRoomMappingInline,)  # , RoomInventoryInline)
+    list_display = ("id", "name", "hotel", "ordinal", "room_mapping")
+    search_fields = ("hotel__name", "hotel__id")
+    list_editable = ("ordinal",)
+    raw_id_fields = ("hotel",)
+    autocomplete_lookup_fields = {"fk": ["hotel"]}
 
-#     def room_mapping(self, obj):
-#         mapping = HotelRoomMapping.objects.filter(hotel_room=obj)
-#         rooms = ", ".join(f"({room.external_code}) {room.external_name}" for room in mapping)
-#         return rooms if rooms else "-"
+    def room_mapping(self, obj):
+        mapping = HotelRoomMapping.objects.filter(hotel_room=obj)
+        rooms = ", ".join(f"({room.external_code}) {room.external_name}" for room in mapping)
+        return rooms if rooms else "-"
