@@ -16,11 +16,17 @@ class OperatorModelAdmin(admin.ModelAdmin):
         "short_name",
         "category",
         "operator_group",
+        "operator_mapping",
         # "allocation_group",
     )
     list_filter = ("name", "category")
     search_fields = ("name",)
     inlines = (OperatorMappingInline,)
+
+    def operator_mapping(self, obj):
+        mapping = OperatorMapping.objects.filter(operator=obj)
+        operators = ", ".join(f"({operator.external_code}) {operator.external_name}" for operator in mapping)
+        return operators if operators else "-"
 
 
 @admin.register(OperatorGroup)

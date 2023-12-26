@@ -1,5 +1,6 @@
 server {
     listen ${LISTEN_PORT};
+    server_name datapoint.meetingpointuae.com;
 
     location /static {
         alias /vol/static;
