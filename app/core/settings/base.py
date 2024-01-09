@@ -51,6 +51,7 @@ LOCAL_APPS = [
     # "reservations",
     "mapping",
     "scripts",
+    "sample",
 ]
 
 # All installed apps
@@ -144,15 +145,13 @@ DATE_FORMAT = "Y-m-d"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "/static/static/"
-MEDIA_URL = "/static/media/"
+STATIC_URL = "/static/"
+MEDIA_URL = "/media/"
 
-STATIC_ROOT = "/vol/www/static"
-MEDIA_ROOT = "/vol/www/media"
+STATIC_ROOT = str(BASE_DIR.parent / "staticfiles")
+MEDIA_ROOT = "/media"
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+STATICFILES_DIRS = [str(BASE_DIR / "static")]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

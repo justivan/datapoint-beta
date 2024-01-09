@@ -13,7 +13,7 @@ services:
     image: datapoint_production_django
     restart: always
     volumes:
-      - production_django_media:/vol/www
+      - production_django_media:/app/media
     depends_on:
       - postgres
     env_file:
@@ -30,7 +30,7 @@ services:
       - production_postgres_data:/var/lib/postgresql/data
       - production_postgres_data_backups:/backups
     ports:
-      - 5432:5432
+      - 5433:5432
     env_file:
       - .env
 
@@ -43,6 +43,6 @@ services:
     depends_on:
       - django
     ports:
-      - 8000:80
+      - 80:80
     volumes:
-      - production_django_media:/vol/static
+      - production_django_media:/usr/share/nginx/media

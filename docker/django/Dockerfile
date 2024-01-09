@@ -43,10 +43,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   # create unprivileged user for security
   && adduser --disabled-password django \
   # create directories for static files
-  && mkdir -p /vol/www/static \
-  && mkdir -p /vol/www/media \
-  && chown -R django:django /vol \
-  && chmod -R 755 /vol
+  && mkdir -p /staticfiles \
+  && chown -R django:django /staticfiles \
+  && chmod -R 755 /staticfiles
 
 # copy python dependency wheels from python-build-stage
 COPY --from=python-build-stage /usr/src/app/wheels  /wheels/
