@@ -51,7 +51,6 @@ LOCAL_APPS = [
     # "reservations",
     "mapping",
     "scripts",
-    "sample",
 ]
 
 # All installed apps
@@ -149,7 +148,7 @@ STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 
 STATIC_ROOT = str(BASE_DIR.parent / "staticfiles")
-MEDIA_ROOT = "/media"
+MEDIA_ROOT = str(BASE_DIR / "media")
 
 STATICFILES_DIRS = [str(BASE_DIR / "static")]
 
@@ -161,12 +160,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 ADMIN_URL = "admin/"
 
 AUTH_USER_MODEL = "users.User"
-
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
 
 FIXTURE_DIRS = [BASE_DIR.parent / "fixtures"]
 
