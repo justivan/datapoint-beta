@@ -48,7 +48,7 @@ LOCAL_APPS = [
     # "contracts",
     "definitions",
     # "reports",
-    "reservations",
+    "gwg",
     "mapping",
     "scripts",
 ]
