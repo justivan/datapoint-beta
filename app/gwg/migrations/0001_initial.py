@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="Booking",
+            name="Reservation",
             fields=[
                 ("ref_id", models.IntegerField(primary_key=True, serialize=False)),
                 ("res_id", models.IntegerField()),
