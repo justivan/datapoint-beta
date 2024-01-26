@@ -63,7 +63,7 @@ RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 
 COPY --chown=django:django .${APP_HOME} ${APP_HOME}
-COPY --chown=django:django ./fixtures /fixtures
+# COPY --chown=django:django ./fixtures /fixtures
 
 USER django
 
