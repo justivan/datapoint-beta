@@ -12,7 +12,7 @@ class HotelMappingAdmin(admin.ModelAdmin):
         "provider",
     )
     list_per_page = 20
-    search_fields = ("hotel__id", "external_name")
+    search_fields = ("hotel__id", "external_code", "external_name")
 
 
 @admin.register(HotelRoomMapping)
