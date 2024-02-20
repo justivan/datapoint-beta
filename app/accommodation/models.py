@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.functions import Lower
 from django.utils.text import slugify
 from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.translation import gettext_lazy as _
@@ -147,7 +148,7 @@ class Hotel(UserTrackingMixin, models.Model):
         return ("id__iexact", "name__icontains")
 
     class Meta:
-        ordering = ("area__region__country__name", "name")
+        ordering = ("area__region__country__name", Lower("name"))
 
     def __str__(self):
         return self.name

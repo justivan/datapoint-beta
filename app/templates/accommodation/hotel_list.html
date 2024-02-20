@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <div
   id="hotel-grid"
-  x-bind:class="{ 'ag-theme-alpine-dark': mode === 'dark', 'ag-theme-alpine': mode === 'light' }"
+  x-bind:class="{ 'ag-theme-quartz-dark': mode === 'dark', 'ag-theme-quartz': mode === 'light' }"
   class="h-full"
 >
   {% csrf_token %}

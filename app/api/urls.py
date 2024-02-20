@@ -1,10 +1,5 @@
 from django.urls import path
-from .views import (
-    user_list,
-    country_list,
-    region_list,
-    area_list,
-)
+from .views import user_list, country_list, region_list, area_list, hotel_api_view
 
 app_name = "api"
 urlpatterns = [
@@ -12,4 +7,5 @@ urlpatterns = [
     path("country/", country_list, name="country-list"),
     path("region/", region_list, name="region-list"),
     path("area/", area_list, name="area-list"),
+    path("hotel/", hotel_api_view, name="hotel-list"),
 ]

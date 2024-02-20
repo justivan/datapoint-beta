@@ -103,11 +103,12 @@ const hotelColDefs = [
   {
     headerName: "Giata",
     field: "giata",
+    cellDataType: "number",
     width: 90,
   },
   {
     headerName: "Tags",
-    field: "tags", // Assuming 'tags' is the field name in your data
+    field: "tags",
     valueGetter: (params) => {
       // Extract and concatenate tag names from the 'tags' array
       return params.data.tags
@@ -122,26 +123,34 @@ const hotelColDefs = [
 const hotelGridOpts = {
   columnDefs: hotelColDefs,
   rowModelType: "serverSide",
-  cacheBlockSize: 50,
+  cacheBlockSize: 100,
   maxBlocksInCache: 2,
+  defaultColDef: {
+    flex: 1,
+    minWidth: 100,
+    filter: true,
+    // menuTabs: ["filterMenuTab"],
+  },
 };
 
 document.addEventListener("DOMContentLoaded", () => {
   const hotelGrid = document.querySelector("#hotel-grid");
-  new agGrid.Grid(hotelGrid, hotelGridOpts);
+  let gridApi = agGrid.createGrid(hotelGrid, hotelGridOpts);
 
   const dataSource = {
     getRows: (params) => {
       ajax("/api/hotel/", params.request)
         .then((response) => {
-          params.successCallback(response, 30);
+          params.success({
+            rowData: response,
+          });
         })
         .catch((e) => {
           console.error(e);
-          params.failCallback();
+          params.fail();
         });
     },
   };
 
-  hotelGridOpts.api.setServerSideDatasource(dataSource);
+  gridApi.setGridOption("serverSideDatasource", dataSource);
 });

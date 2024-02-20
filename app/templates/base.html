@@ -15,15 +15,15 @@
 
     <link rel="icon" href="{% static 'img/favicon.svg' %}" type="svg+xml" />
     <link rel="stylesheet" href="{%static 'css/ag-grid.min.css' %}" />
-    <link rel="stylesheet" href="{%static 'css/ag-theme-alpine.min.css' %}" />
+    <link rel="stylesheet" href="{%static 'css/ag-theme-quartz.min.css' %}" />
     <link rel="stylesheet" href="{%static 'css/datagate-ui.css' %}" />
-    
+
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.1/dist/cdn.min.js"></script>
   </head>
-  <body class="h-full bg-white pt-15 antialiased dark:bg-gray-900">
+  <body class="h-full bg-white pt-15 antialiased dark:bg-gray-950">
     {% include 'components/navbar.html' %}
-    <div class="flex h-full flex-col bg-gray-50 p-3 antialiased dark:bg-gray-900 sm:p-5">
-      <div class="relative h-full overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-sm">
+    <div class="flex h-full flex-col bg-gray-50 p-3 antialiased dark:bg-gray-950 sm:p-5">
+      <div class="relative h-full overflow-hidden bg-white dark:bg-gray-800 sm:rounded-sm">
         {% block content %} {% endblock content %}
       </div>
     </div>

@@ -8,6 +8,7 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("api/", include("api.urls", namespace="api")),
     path("grappelli/", include("grappelli.urls")),
+    path("accommodation/", include("accommodation.urls", namespace="accommodation")),
     path(settings.ADMIN_URL, admin.site.urls),
 ]
 

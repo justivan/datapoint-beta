@@ -6,6 +6,8 @@ from django.contrib.auth import get_user_model
 
 from definitions.models import Country, Region, Area
 from definitions.serializers import CountrySerializer, RegionSerializer, AreaSerializer
+from accommodation.models import PurchaseManager, SalesContact, HotelChain, Hotel
+from accommodation.serializers import PurchaseManagerSerializer, SalesContactSerializer, HotelSerializer
 from users.serializers import UserSerializer
 
 User = get_user_model()
@@ -55,3 +57,26 @@ def area_list(request):
 
     serializer = AreaSerializer(queryset, many=True)
     return Response(serializer.data)
+
+
+@api_view(["POST"])
+def hotel_api_view(request):
+    if request.method == "POST":
+        queryset = Hotel.objects.select_related(
+            "category",
+            "area",
+            "chain",
+            "sales_contact",
+            "purchase_manager",
+            "status",
+        ).prefetch_related("tags")
+
+        # infinite scroll
+        start_row = int(request.data.get("startRow", 0))
+        end_row = int(request.data.get("endRow", 50))
+
+        queryset = queryset[int(start_row) : int(end_row)]
+        serializer = HotelSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    return Response({"error": "Unsupported method"}, status=405)
