@@ -8,7 +8,12 @@ from definitions.models import Country, Region, Area
 from definitions.serializers import CountrySerializer, RegionSerializer, AreaSerializer
 from accommodation.models import PurchaseManager, SalesContact, HotelChain, Hotel
 from accommodation.serializers import PurchaseManagerSerializer, SalesContactSerializer, HotelSerializer
+from gwg.models import Reservation
+from gwg.serialilzers import ReservationSerializer
+from mapping.models import OperatorMapping
 from users.serializers import UserSerializer
+
+from datetime import datetime
 
 User = get_user_model()
 
@@ -80,3 +85,22 @@ def hotel_api_view(request):
         return Response(serializer.data)
 
     return Response({"error": "Unsupported method"}, status=405)
+
+
+@api_view(["GET"])
+def arrival_list_api_view(request, arrival_date):
+    arrival_date = datetime.strptime(arrival_date, "%Y%m%d")
+
+    ic_operators = (
+        OperatorMapping.objects.filter(operator__category="IC")
+        .exclude(external_code=1107)
+        .values_list("external_code", flat=True)
+    )
+
+    queryset = Reservation.objects.filter(
+        operator_id__in=ic_operators,
+        in_date__gte=arrival_date,
+    ).exclude(status="Can")
+
+    serializer = ReservationSerializer(queryset, many=True)
+    return Response(serializer.data)

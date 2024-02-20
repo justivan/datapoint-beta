@@ -1,5 +1,12 @@
 from django.urls import path
-from .views import user_list, country_list, region_list, area_list, hotel_api_view
+from .views import (
+    user_list,
+    country_list,
+    region_list,
+    area_list,
+    hotel_api_view,
+    arrival_list_api_view,
+)
 
 app_name = "api"
 urlpatterns = [
@@ -8,4 +15,5 @@ urlpatterns = [
     path("region/", region_list, name="region-list"),
     path("area/", area_list, name="area-list"),
     path("hotel/", hotel_api_view, name="hotel-list"),
+    path("reservation/arrival/<str:arrival_date>/", arrival_list_api_view, name="arrival-list"),
 ]

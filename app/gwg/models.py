@@ -1,8 +1,8 @@
 from django.db import models
 
-from accommodation.models import Hotel, HotelRoom
-from definitions.models import MealPlan
-from clients.models import Operator
+# from accommodation.models import Hotel, HotelRoom
+# from definitions.models import MealPlan
+# from clients.models import Operator
 
 
 class Reservation(models.Model):
