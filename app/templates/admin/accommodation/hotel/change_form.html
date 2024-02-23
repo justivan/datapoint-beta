@@ -1,7 +1,4 @@
-{% extends 'admin/change_form.html' %}
-
-{% block extrahead %}
-{{ block.super }}
+{% extends 'admin/change_form.html' %} {% block extrahead %} {{ block.super }}
 <script type="text/javascript">
   (function () {
     // Function to update the area field based on lat and lng
@@ -11,10 +8,15 @@
       let areaInput = document.getElementById("id_area");
       let areaAutoComplete = document.getElementById("id_area-autocomplete");
 
-      let lat = parseFloat(latInput.value);
-      let lng = parseFloat(lngInput.value);
+      let latLngValue = latInput.value.trim().split(","); // Split the value by comma
+      let lat = parseFloat(latLngValue[0]).toFixed(8);
+      let lng = parseFloat(latLngValue[1]).toFixed(8);
 
       if (!isNaN(lat) && !isNaN(lng)) {
+        // Update latitude and longitude inputs
+        latInput.value = lat;
+        lngInput.value = lng;
+
         // AJAX request to retrieve the area based on lat and lng
         fetch("/api/area/?lat=" + lat + "&lng=" + lng)
           .then(function (response) {
