@@ -3,11 +3,35 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 
 
+class BusinessUnit(models.Model):
+    name = models.CharField(max_length=120, unique=True)
+
+    class Meta:
+        db_table = "users_business_unit"
+        ordering = ("name",)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class Deparment(models.Model):
+    business_unit = models.ForeignKey(BusinessUnit, on_delete=models.PROTECT)
+    name = models.CharField(max_length=120, unique=True)
+
+    class Meta:
+        db_table = "users_department"
+        ordering = ("name",)
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 class User(AbstractUser):
     name = models.CharField(_("Name of User"), max_length=120, blank=True)
     first_name = None
     last_name = None
     designation = models.CharField(max_length=120, blank=True, null=True)
+    department = models.ForeignKey(Deparment, default=1, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.username

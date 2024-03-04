@@ -10,6 +10,7 @@ urlpatterns = [
     path("grappelli/", include("grappelli.urls")),
     path("accommodation/", include("accommodation.urls", namespace="accommodation")),
     path(settings.ADMIN_URL, admin.site.urls),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 if settings.DEBUG:

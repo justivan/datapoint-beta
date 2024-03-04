@@ -39,6 +39,7 @@ THIRD_PARTY_APPS = [
     "phonenumber_field",
     "rest_framework",
     "simple_history",
+    "debug_toolbar",
 ]
 
 LOCAL_APPS = [
@@ -47,7 +48,7 @@ LOCAL_APPS = [
     "clients",
     # "contracts",
     "definitions",
-    # "reports",
+    "reports",
     "gwg",
     "mapping",
     "scripts",
@@ -65,6 +66,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"

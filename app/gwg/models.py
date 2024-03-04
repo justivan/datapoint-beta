@@ -43,5 +43,12 @@ class Reservation(models.Model):
     status4 = models.CharField(max_length=3)
     status5 = models.CharField(max_length=3)
 
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("ref_id__iexact", "bkg_ref__icontains")
+
     class Meta:
         ordering = ("in_date",)
+
+    def __str__(self):
+        return str(self.ref_id)

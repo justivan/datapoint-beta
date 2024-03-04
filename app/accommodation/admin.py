@@ -41,14 +41,13 @@ class HotelAdmin(admin.ModelAdmin):
         "longitude",
         "purchase_manager",
         "sales_contact",
-        "status",
-        "created_at",
-        "updated_at",
-        "created_by",
-        "updated_by",
+        "giata",
         "get_tags",
+        "updated_at",
+        "updated_by",
+        "status",
     )
-    list_filter = ("area__region__country", "area__region", "area", "chain", "status", "created_at")
+    list_filter = ("area__region__country", "area__region", "area", "chain", "status", "purchase_manager")
     list_per_page = 20
     search_fields = ("id", "name", "giata", "chain__name")
     inlines = (
@@ -90,6 +89,24 @@ class HotelAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
     get_tags.short_description = "Tags"
+
+    def get_queryset(self, request):
+        return (
+            super()
+            .get_queryset(request)
+            .select_related(
+                "category",
+                "area",
+                "area__region",
+                "area__region__country",
+                "chain",
+                "sales_contact",
+                "purchase_manager",
+                "purchase_manager__user",
+                "status",
+            )
+            .prefetch_related("tags")
+        )
 
 
 @admin.register(PurchaseManager)

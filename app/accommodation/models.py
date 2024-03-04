@@ -19,7 +19,7 @@ class PurchaseManager(models.Model):
         ordering = ("user__name",)
 
     def __str__(self):
-        return f"{self.user.name}"
+        return self.user.name
 
 
 class SalesContact(models.Model):
@@ -37,7 +37,7 @@ class SalesContact(models.Model):
         ordering = ("name",)
 
     def __str__(self):
-        return f"{self.email}"
+        return self.email
 
 
 class HotelChain(models.Model):
@@ -48,7 +48,7 @@ class HotelChain(models.Model):
         ordering = ("name",)
 
     def __str__(self):
-        return f"{self.name}"
+        return self.name
 
 
 class HotelCategory(models.Model):
@@ -60,7 +60,7 @@ class HotelCategory(models.Model):
         verbose_name_plural = "hotel categories"
 
     def __str__(self):
-        return f"{self.name}"
+        return self.name
 
 
 class HotelStatus(models.Model):
@@ -72,7 +72,7 @@ class HotelStatus(models.Model):
         verbose_name_plural = "hotel status"
 
     def __str__(self):
-        return f"{self.name}"
+        return self.name
 
 
 class HotelTag(models.Model):
@@ -88,7 +88,7 @@ class HotelTag(models.Model):
         ordering = ("name",)
 
     def __str__(self):
-        return f"{self.slug}"
+        return self.slug
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -119,13 +119,13 @@ class Hotel(UserTrackingMixin, models.Model):
     )
     chain = models.ForeignKey(
         HotelChain,
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,
         blank=True,
         null=True,
     )
     sales_contact = models.ForeignKey(
         SalesContact,
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,
         blank=True,
         null=True,
     )
@@ -155,12 +155,7 @@ class Hotel(UserTrackingMixin, models.Model):
 
 
 class HotelRoom(models.Model):
-    hotel = models.ForeignKey(
-        Hotel,
-        verbose_name=_("Master Hotel Name"),
-        on_delete=models.PROTECT,
-        db_index=True,
-    )
+    hotel = models.ForeignKey(Hotel, verbose_name=_("Master Hotel Name"), on_delete=models.PROTECT)
     name = models.CharField(_("Hotel Room Name"), max_length=120)
     ordinal = models.PositiveIntegerField(default=1)
 
@@ -174,4 +169,4 @@ class HotelRoom(models.Model):
         unique_together = (("hotel", "name"),)
 
     def __str__(self):
-        return f"{self.name}"
+        return self.name
