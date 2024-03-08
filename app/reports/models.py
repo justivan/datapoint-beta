@@ -30,7 +30,7 @@ class IssueStatus(models.Model):
 
 
 class Issue(UserTrackingMixin, models.Model):
-    reservation = models.ForeignKey(Reservation, on_delete=models.PROTECT)
+    reservation = models.OneToOneField(Reservation, on_delete=models.PROTECT)
     description = models.TextField(blank=True, null=True)
     case_type = models.ForeignKey(CaseType, on_delete=models.PROTECT)
     initial_cost = models.DecimalField(max_digits=11, decimal_places=4, default=0)

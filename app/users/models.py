@@ -31,7 +31,7 @@ class User(AbstractUser):
     first_name = None
     last_name = None
     designation = models.CharField(max_length=120, blank=True, null=True)
-    department = models.ForeignKey(Deparment, default=1, on_delete=models.PROTECT)
+    department = models.ForeignKey(Deparment, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.username
