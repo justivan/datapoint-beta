@@ -34,7 +34,12 @@ class IssueModelAdmin(admin.ModelAdmin):
         "difference",
         "status",
     )
-    readonly_fields = ("bkg_ref",)
+    readonly_fields = (
+        "bkg_ref",
+        "hotel_name",
+        "in_date",
+        "out_date",
+    )
     fieldsets = (
         (
             "Reservation Details",
