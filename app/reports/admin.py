@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models import CaseType, IssueStatus, Issue
+from mapping.models import HotelMapping
 
 
 @admin.register(CaseType)
@@ -18,6 +19,9 @@ class IssueModelAdmin(admin.ModelAdmin):
     list_display = (
         "reservation",
         "bkg_ref",
+        "hotel_name",
+        "in_date",
+        "out_date",
         "description",
         "case_type",
         "business_unit",
@@ -32,7 +36,18 @@ class IssueModelAdmin(admin.ModelAdmin):
     )
     readonly_fields = ("bkg_ref",)
     fieldsets = (
-        ("Reservation Details", {"fields": ("reservation", "bkg_ref")}),
+        (
+            "Reservation Details",
+            {
+                "fields": (
+                    "reservation",
+                    "bkg_ref",
+                    "hotel_name",
+                    "in_date",
+                    "out_date",
+                )
+            },
+        ),
         ("Issue Details", {"fields": ("description", "case_type", "status")}),
         ("Cost Details", {"fields": ("initial_cost", "final_cost", "hotel_cost")}),
         ("User Details", {"fields": ("contributing_user", "assigned_to")}),
@@ -52,6 +67,32 @@ class IssueModelAdmin(admin.ModelAdmin):
         try:
             return obj.final_cost - obj.hotel_cost
         except AttributeError:
+            return None
+
+    def hotel_name(self, obj):
+        try:
+            mapping_hotel = HotelMapping.objects.get(external_code=obj.reservation.hotel_id)
+            return mapping_hotel.hotel.name
+        except HotelMapping.DoesNotExist:
+            return None
+
+    def in_date(self, obj):
+        try:
+            return obj.reservation.in_date
+        except AttributeError:
+            return None
+
+    def out_date(self, obj):
+        try:
+            return obj.reservation.out_date
+        except AttributeError:
+            return None
+
+    def hotel_name(self, obj):
+        try:
+            mapping_hotel = HotelMapping.objects.get(external_code=obj.reservation.hotel_id)
+            return mapping_hotel.hotel.name
+        except HotelMapping.DoesNotExist:
             return None
 
     def department(self, obj):
