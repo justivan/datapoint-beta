@@ -29,8 +29,8 @@ class IssueModelAdmin(admin.ModelAdmin):
         "contributing_user",
         "assigned_to",
         "initial_cost",
-        "final_cost",
         "hotel_cost",
+        "final_cost",
         "difference",
         "status",
     )
@@ -70,7 +70,7 @@ class IssueModelAdmin(admin.ModelAdmin):
 
     def difference(self, obj):
         try:
-            return obj.final_cost - obj.hotel_cost
+            return obj.initial_cost - obj.final_cost
         except AttributeError:
             return None
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils.translation import gettext_lazy as _
 
 from gwg.models import Reservation
 from users.models import UserTrackingMixin
@@ -33,9 +34,9 @@ class Issue(UserTrackingMixin, models.Model):
     reservation = models.OneToOneField(Reservation, on_delete=models.PROTECT)
     description = models.TextField(blank=True, null=True)
     case_type = models.ForeignKey(CaseType, on_delete=models.PROTECT)
-    initial_cost = models.DecimalField(max_digits=11, decimal_places=4, default=0)
-    final_cost = models.DecimalField(max_digits=11, decimal_places=4, default=0)
-    hotel_cost = models.DecimalField(max_digits=11, decimal_places=4, default=0)
+    initial_cost = models.DecimalField(_("Error rate"), max_digits=11, decimal_places=4, default=0)
+    final_cost = models.DecimalField(_("Final rate"), max_digits=11, decimal_places=4, default=0)
+    hotel_cost = models.DecimalField(_("Contract rate"), max_digits=11, decimal_places=4, default=0)
     contributing_user = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
